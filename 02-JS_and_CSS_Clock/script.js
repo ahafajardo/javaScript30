@@ -1,8 +1,8 @@
-let currentTime = new Date();
-let secondPosition = 90;
-let minPosition = 90;
-let hourPosition = 90;
-let milliPosition = 90;
+let currentTime;
+let secondPosition;
+let minPosition;
+let hourPosition;
+let milliPosition;
 
 setInterval(update, 10);
 
@@ -14,8 +14,8 @@ function update() {
   milliPosition = currentTime.getMilliseconds() * 0.36 - 270;
   //account for position of milli-hand at 1000 ms. 1000 * 0.36 + 90 = 420, so subtract 270 instead. Range is then -270 to 90 degrees
 
-  document.querySelector("div.hand div.second-hand").parentElement.style.transform = `rotate(${secondPosition}deg)`;
-  document.querySelector("div.hand div.min-hand").parentElement.style.transform = `rotate(${minPosition}deg)`;
-  document.querySelector("div.hand div.hour-hand").parentElement.style.transform = `rotate(${hourPosition}deg)`;
-  document.querySelector("div.hand div.milli-hand").parentElement.style.transform = `rotate(${milliPosition}deg)`;
+  document.querySelector("div.second-hand").parentElement.style.transform = `rotate(${secondPosition}deg)`;
+  document.querySelector("div.min-hand").parentElement.style.transform = `rotate(${minPosition}deg)`;
+  document.querySelector("div.hour-hand").parentElement.style.transform = `rotate(${hourPosition}deg)`;
+  document.querySelector("div.milli-hand").parentElement.style.transform = `rotate(${milliPosition}deg)`;
 }
