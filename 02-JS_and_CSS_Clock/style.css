@@ -35,7 +35,6 @@ body {
 
 .hand {
   width: 50%;
-  height: 6px;
   transform-origin: 100%;
   position: absolute;
   top: 50%;
@@ -43,20 +42,30 @@ body {
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
+.hand--milli-hand {
+  transition-timing-function: step-start;
+}
+
 .second-hand {
   height: 6px;
-  background: black;
+  background: white;
   opacity: 0.8;
 }
 .min-hand {
   width: 75%;
   height: 6px;
-  background: black;
+  background: white;
   opacity: 0.6;
 }
 .hour-hand {
   width: 50%;
   height: 6px;
-  background: black;
+  background: white;
   opacity: 0.4;
+}
+.milli-hand {
+  width: 25%;
+  height: 6px;
+  background: white;
+  opacity: 0.2;
 }
