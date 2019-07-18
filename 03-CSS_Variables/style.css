@@ -2,9 +2,9 @@
       misc styles, nothing to do with CSS variables
     */
 :root {
-  --spacingValue: 0px;
-  --blurValue: 0px;
-  --baseColor: #ffc600;
+  --blur: 0px;
+  --spacing: 0px;
+  --base: #ffc600;
 }
 
 body {
@@ -25,11 +25,11 @@ input {
 }
 
 img {
-  padding: var(--spacingValue);
-  filter: blur(var(--blurValue));
-  background-color: var(--baseColor);
+  padding: var(--spacing);
+  filter: blur(var(--blur));
+  background-color: var(--base);
 }
 
 .hl {
-  color: var(--baseColor);
+  color: var(--base);
 }

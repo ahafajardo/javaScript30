@@ -2,20 +2,8 @@ let root = document.documentElement;
 
 const inputs = [...document.querySelectorAll(".controls input")];
 
-inputs.map(input => input.addEventListener("input change", updateElements));
+inputs.map(input => input.addEventListener("input", updateElements));
 
 function updateElements() {
-  switch (this.id) {
-    case "blur":
-      root.style.setProperty("--blurValue", `${this.value}px`);
-      break;
-    case "spacing":
-      root.style.setProperty("--spacingValue", `${this.value}px`);
-      break;
-    case "base":
-      root.style.setProperty("--baseColor", `${this.value}`);
-      break;
-    default:
-      break;
-  }
+  root.style.setProperty(`--${this.name}`, `${this.value}${this.dataset.sizing || ""}`);
 }
