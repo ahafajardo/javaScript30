@@ -1,28 +1,21 @@
-let blurRange = document.querySelector("#blur");
-let blurValue = blurRange.value;
-blurRange.addEventListener("input", updateBlur);
-
-let spacingRange = document.querySelector("#spacing");
-let spacingValue = spacingRange.value;
-spacingRange.addEventListener("input", updateSpacing);
-
-let baseColorSelect = document.querySelector("#base");
-let baseColorValue = baseColorSelect.value;
-baseColorSelect.addEventListener("input", updateBaseColor);
-
 let root = document.documentElement;
 
-function updateBlur() {
-  blurValue = blurRange.value;
-  root.style.setProperty("--blurValue", `${blurValue}px`);
-}
+const inputs = [...document.querySelectorAll(".controls input")];
 
-function updateSpacing() {
-  spacingValue = spacingRange.value;
-  root.style.setProperty("--spacingValue", `${spacingValue}px`);
-}
+inputs.map(input => input.addEventListener("input change", updateElements));
 
-function updateBaseColor() {
-  baseColorValue = baseColorSelect.value;
-  root.style.setProperty("--baseColor", `${baseColorValue}`);
+function updateElements() {
+  switch (this.id) {
+    case "blur":
+      root.style.setProperty("--blurValue", `${this.value}px`);
+      break;
+    case "spacing":
+      root.style.setProperty("--spacingValue", `${this.value}px`);
+      break;
+    case "base":
+      root.style.setProperty("--baseColor", `${this.value}`);
+      break;
+    default:
+      break;
+  }
 }
