@@ -4,23 +4,17 @@ document.querySelector("body").addEventListener("keydown", playSound);
 document.querySelector("body").addEventListener("keyup", unhighlight);
 
 function highlight(e) {
-  let keyCode = e.which;
-  let instruments = [...document.querySelectorAll("div.key")];
-  let activeInstr = instruments.find(instrument => instrument.getAttribute("data-key") == keyCode);
-  if (activeInstr) activeInstr.classList.add("playing");
+  let reqInstrument = document.querySelector(`div.key[data-key="${e.keyCode}"]`);
+  if (reqInstrument) reqInstrument.classList.add("playing");
 }
 function unhighlight(e) {
-  let keyCode = e.which;
-  let instruments = [...document.querySelectorAll("div.key")];
-  let activeInstr = instruments.find(instrument => instrument.getAttribute("data-key") == keyCode);
-  if (activeInstr) activeInstr.classList.remove("playing");
+  let reqInstrument = document.querySelector(`div.key[data-key="${e.keyCode}"]`);
+  if (reqInstrument) reqInstrument.classList.remove("playing");
 }
 function playSound(e) {
-  let keyCode = e.which;
-  let instruments = [...document.querySelectorAll("audio")];
-  let activeInstr = instruments.find(instrument => instrument.getAttribute("data-key") == keyCode);
-  if (activeInstr) {
-    activeInstr.play();
-    activeInstr.currentTime = 0;
+  let reqInstrument = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  if (reqInstrument) {
+    reqInstrument.play();
+    reqInstrument.currentTime = 0;
   }
 }
