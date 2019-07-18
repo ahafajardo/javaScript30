@@ -14,7 +14,7 @@ function unhighlight(e) {
 function playSound(e) {
   let reqInstrument = document.querySelector(`audio[data-key="${e.keyCode}"]`);
   if (reqInstrument) {
-    reqInstrument.play();
     reqInstrument.currentTime = 0;
+    reqInstrument.play();
   }
 }
