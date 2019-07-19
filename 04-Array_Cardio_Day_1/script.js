@@ -72,11 +72,11 @@ let answer2 = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
 console.log(answer2);
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
-/*  If inventor2 - inventor1 < 0, put inventor1 in front of inventor2.
-    If inventor2 - inventor1 > 0, put inventor2 in front of inventor1.
-    If inventor2 - inventor1 = 0, leave them in place.
+/*  If inventor.year - nextInventor.year < 0, put inventor in front of nextInventor.
+    If inventor.year - nextInventor.year > 0, put nextInventor in front of inventor.
+    If inventor.year - nextInventor.year = 0, leave them in place.
 */
-let answer3 = inventors.sort((inventor1, inventor2) => inventor2.year - inventor1.year);
+let answer3 = inventors.sort((inventor, nextInventor) => inventor.year - nextInventor.year);
 console.table(answer3);
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
@@ -84,7 +84,7 @@ let answer4 = inventors.reduce((totalYearsLived, inventor) => totalYearsLived + 
 console.log(answer4);
 // 5. Sort the inventors by years lived
 let answer5 = inventors.sort(
-  (inventor1, inventor2) => inventor2.passed - inventor2.year - (inventor1.passed - inventor1.year)
+  (inventor, nextInventor) => nextInventor.passed - nextInventor.year - (inventor.passed - inventor.year)
 );
 console.table(answer5);
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
@@ -94,18 +94,17 @@ console.table(answer5);
 // Sort the people alphabetically by last name
 let answer7 = people.sort();
 console.log(answer7);
+// let firstNameSort = people.sort((a, b) => {
+//   const first = getFirstName(a);
+//   const second = getFirstName(b);
+//   return first >= second ? 1 : -1;
+// });
 
-let firstNameSort = answer7.sort((a, b) => {
-  const first = getFirstName(a);
-  const second = getFirstName(b);
-  return first >= second ? 1 : -1;
-});
+// function getFirstName(name) {
+//   return name.split(", ")[1];
+// }
 
-function getFirstName(name) {
-  return name.split(", ")[1];
-}
-
-console.log(firstNameSort);
+// console.log(firstNameSort);
 // 8. Reduce Exercise
 // Sum up the instances of each of these
 const data = [
