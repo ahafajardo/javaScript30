@@ -127,7 +127,7 @@ const data = [
 ];
 
 let answer8 = data.reduce((arr, item) => {
-  if (!arr.find(currentItem => item == currentItem)) arr.push(item);
+  if (!arr.includes(item)) arr.push(item);
   return arr;
 }, []);
 
