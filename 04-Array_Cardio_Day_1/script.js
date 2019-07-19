@@ -143,16 +143,12 @@ const data = [
   "pogostick"
 ];
 
-let answer8 = data.reduce((arr, item) => {
-  if (!arr.includes(item)) arr.push(item);
-  return arr;
-}, []);
-
-let itemCount = countingItem => data.reduce((itemTotal, item) => itemTotal + (item == countingItem), 0);
-
-answer8 = answer8.reduce((obj, item) => {
-  obj[item] = itemCount(item);
+let answer8 = data.reduce((obj, item) => {
+  obj[item] ? obj[item]++ : (obj[item] = 1);
   return obj;
 }, {});
-
+/*
+  If there is an property in the object for the current item we are counting, increment its value by one.
+  Otherwise, initialize the current item count to 1. Then, return the object.
+*/
 console.log(answer8);
