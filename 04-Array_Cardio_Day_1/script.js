@@ -89,10 +89,28 @@ let answer5 = inventors.sort(
 console.table(answer5);
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+let answer6 = [...document.querySelectorAll("div.mw-category-group ul li a")];
+answer6 = answer6.length
+  ? answer6.map(link => link.innerText).filter(linkText => linkText.includes(" de "))
+  : "Run the code from line 92 to line 96 on https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris";
+console.log(answer6);
 // 7. sort Exercise
-// Sort the people alphabetically by last name
-let answer7 = people.sort();
+// Sort the people alphabetically by first name
+let answer7 = people.sort((name, nextName) =>
+  name.split(", ")[1] == nextName.split(", ")[1] ? 0 : name.split(", ")[1] < nextName.split(", ")[1] ? -1 : 1
+);
+/*
+  THIS is pretty dense, so here's the breakdown:
+  1. Sort the people array
+  2. Split the two names at the ", " and extract the second part, which contains the first names that we want to compare.
+  2. To sort it, first check if the current first name is equivalent alphabetically to the next first name.
+    a. If so, return 0 to leave the names alone, and go on to the next pair of names to sort. You're done!
+    b. If not, go on to step 3.
+  3. Split the two names at the ", " and extract the first part, which contains the first names that we want to compare.
+  4. Check whether the first name goes before the next first name in alphabetical order
+    a. If so, return -1 to move the first name in front of the next first name.
+    b. If not, return 1 to move the next first name in front of the first name.
+*/
 console.log(answer7);
 // let firstNameSort = people.sort((a, b) => {
 //   const first = getFirstName(a);
