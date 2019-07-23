@@ -1,7 +1,6 @@
 const checkboxes = document.querySelectorAll(".item input");
 
 let checkedIndex = 0;
-let lastChecked = checkboxes[0];
 let lastCheckedIndex = 0;
 let shiftHeld = false;
 
@@ -17,7 +16,6 @@ checkboxes.forEach(checkbox =>
       let toCheck = [...checkboxes].slice(startIndex + 1, startIndex + indexRange);
       toCheck.forEach(checkbox => (checkbox.checked = !checkbox.checked));
     }
-    lastChecked = e.target;
-    lastCheckedIndex = [...checkboxes].indexOf(lastChecked);
+    lastCheckedIndex = [...checkboxes].indexOf(e.target);
   })
 );
