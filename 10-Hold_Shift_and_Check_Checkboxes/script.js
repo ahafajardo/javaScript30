@@ -7,15 +7,15 @@ let shiftHeld = false;
 document.getRootNode().addEventListener("keydown", e => (shiftHeld = e.which == 16 ? true : shiftHeld));
 document.getRootNode().addEventListener("keyup", e => (shiftHeld = e.which == 16 ? false : shiftHeld));
 
-checkboxes.forEach(checkbox =>
-  checkbox.addEventListener("click", e => {
-    if (shiftHeld) {
-      checkedIndex = [...checkboxes].indexOf(e.target);
-      let indexRange = Math.abs(checkedIndex - lastCheckedIndex);
-      let startIndex = checkedIndex > lastCheckedIndex ? lastCheckedIndex : checkedIndex;
-      let toCheck = [...checkboxes].slice(startIndex + 1, startIndex + indexRange);
-      toCheck.forEach(checkbox => (checkbox.checked = !checkbox.checked));
-    }
-    lastCheckedIndex = [...checkboxes].indexOf(e.target);
-  })
-);
+checkboxes.forEach(checkbox => checkbox.addEventListener("click", handleClick));
+
+function handleClick(e) {
+  if (shiftHeld) {
+    checkedIndex = [...checkboxes].indexOf(e.target);
+    let indexRange = Math.abs(checkedIndex - lastCheckedIndex);
+    let startIndex = checkedIndex > lastCheckedIndex ? lastCheckedIndex : checkedIndex;
+    let toCheck = [...checkboxes].slice(startIndex + 1, startIndex + indexRange);
+    toCheck.forEach(checkbox => (checkbox.checked = !checkbox.checked));
+  }
+  lastCheckedIndex = [...checkboxes].indexOf(e.target);
+}
