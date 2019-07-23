@@ -5,9 +5,7 @@ let lastChecked = checkboxes[0];
 let lastCheckedIndex = 0;
 let shiftHeld = false;
 
-document.getRootNode().addEventListener("keydown", e => {
-  shiftHeld = e.which == 16 ? true : shiftHeld;
-});
+document.getRootNode().addEventListener("keydown", e => (shiftHeld = e.which == 16 ? true : shiftHeld));
 document.getRootNode().addEventListener("keyup", e => (shiftHeld = e.which == 16 ? false : shiftHeld));
 
 checkboxes.forEach(checkbox =>
