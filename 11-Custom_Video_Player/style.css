@@ -82,11 +82,11 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.player:hover .player__controls {
+.player__active {
   transform: translateY(0);
 }
 
-.player:hover .progress {
+.player__active > .progress {
   height: 15px;
 }
 

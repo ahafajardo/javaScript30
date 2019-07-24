@@ -8,43 +8,74 @@ const playButton = playerControls.querySelector(".toggle");
 const volumeSlider = playerControls.querySelector("[name='volume']");
 const speedSlider = playerControls.querySelector("[name='playbackRate']");
 const skipButtons = playerControls.querySelectorAll("[data-skip]");
+const fullscreenButton = player.querySelector(".full__screen");
 
 // Set some Variables
 let scrub = false;
+let mouseHideTimer;
+let mouseHide = false;
 
 // Hook Up Event Listeners
 video.addEventListener("click", handlePlayPause);
 playButton.addEventListener("click", handlePlayPause);
+
 video.addEventListener("timeupdate", handleVideoProgress);
+
 progressBar.addEventListener("mousedown", handleProgressBarMouseDown);
 player.addEventListener("mouseup", handleStopScrub);
 player.addEventListener("mouseleave", handleStopScrub);
+
 player.addEventListener("mousemove", handleScrub);
+
 volumeSlider.addEventListener("click", handleVolumeSliderMove);
 volumeSlider.addEventListener("mousemove", handleVolumeSliderMove);
+
 speedSlider.addEventListener("click", handleSpeedSliderMove);
 speedSlider.addEventListener("mousemove", handleSpeedSliderMove);
+
 skipButtons.forEach(skipButton => skipButton.addEventListener("click", handleSkip));
+
+fullscreenButton.addEventListener("click", handleFullscreen);
+
+player.addEventListener("mousemove", handleMouseHide);
+player.addEventListener("click", handleMouseHide);
 
 // Build our Functions
 function handlePlayPause() {
   if (!video.paused) {
     video.pause();
-    playButton.textContent = "►";
+    playButton.innerHTML = `<i class="fas fa-play"></i>`;
   } else {
     video.play();
-    playButton.textContent = "❚ ❚";
+    playButton.innerHTML = `<i class="fas fa-pause"></i>`;
+  }
+}
+
+function handleFullscreen() {
+  if (
+    !document.isFullScreen &&
+    !document.fullscreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.mozFullScreenElement &&
+    !document.msFullscreenElement
+  ) {
+    player.requestFullscreen();
+    fullscreenButton.innerHTML = `<i class="fas fa-compress"></i>`;
+  } else {
+    document.exitFullscreen();
+    fullscreenButton.innerHTML = `<i class="fas fa-expand"></i>`;
   }
 }
 
 function handleVideoProgress() {
-  progressBarFill.style.setProperty("flex-basis", `${(video.currentTime / video.duration) * 100}%`);
+  progressBarFill.style.flexBasis = `${(video.currentTime / video.duration) * 100}%`;
 }
 
-function handleProgressBarMouseDown() {
+function handleProgressBarMouseDown(e) {
   if (!video.paused) video.pause();
   scrub = true;
-  playButton.textContent = "►";
+  video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+  playButton.innerHTML = `<i class="fas fa-play"></i>`;
 }
 
 function handleStopScrub() {
@@ -67,5 +98,24 @@ function handleSpeedSliderMove() {
 }
 
 function handleSkip(e) {
-  video.currentTime += parseInt(e.target.dataset.skip);
+  let skipInterval = e.target.dataset.skip;
+  if (video.currentTime + skipInterval >= 0 || video.currentTime <= video.duration - skipInterval)
+    video.currentTime += parseFloat(skipInterval);
+}
+
+function handleMouseHide() {
+  if (!mouseHide) {
+    player.style.cursor = "";
+    playerControls.classList.add("player__active");
+    clearTimeout(mouseHideTimer);
+
+    mouseHideTimer = setTimeout(() => {
+      player.style.cursor = "none";
+      playerControls.classList.remove("player__active");
+      mouseHide = true;
+      setTimeout(() => {
+        mouseHide = false;
+      }, 200);
+    }, 1000);
+  }
 }
