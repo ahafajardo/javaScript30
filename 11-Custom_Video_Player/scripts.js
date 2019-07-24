@@ -52,7 +52,10 @@ function handleStopScrub() {
 }
 
 function handleScrub(e) {
-  if (scrub) video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+  if (scrub) {
+    video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+    progressBarFill.style.setProperty("flex-basis", `${(video.currentTime / video.duration) * 100}%`);
+  }
 }
 
 function handleVolumeSliderMove() {
