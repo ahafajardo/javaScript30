@@ -98,9 +98,14 @@ function handleSpeedSliderMove() {
 }
 
 function handleSkip(e) {
-  let skipInterval = e.target.dataset.skip;
-  if (video.currentTime + skipInterval >= 0 || video.currentTime <= video.duration - skipInterval)
-    video.currentTime += parseFloat(skipInterval);
+  let skipInterval = parseFloat(e.target.dataset.skip);
+  if (checkSkip(skipInterval)) video.currentTime += skipInterval;
+  else video.currentTime = skipInterval > 0 ? video.duration : 0;
+}
+
+function checkSkip(interval) {
+  if (interval > 0) return video.currentTime <= video.duration - interval;
+  else return video.currentTime + interval >= 0;
 }
 
 function handleMouseHide() {
@@ -108,14 +113,14 @@ function handleMouseHide() {
     player.style.cursor = "";
     playerControls.classList.add("player__active");
     clearTimeout(mouseHideTimer);
-
-    mouseHideTimer = setTimeout(() => {
-      player.style.cursor = "none";
-      playerControls.classList.remove("player__active");
-      mouseHide = true;
-      setTimeout(() => {
-        mouseHide = false;
-      }, 200);
-    }, 1000);
+    if (!playerControls.matches(":hover"))
+      mouseHideTimer = setTimeout(() => {
+        player.style.cursor = "none";
+        playerControls.classList.remove("player__active");
+        mouseHide = true;
+        setTimeout(() => {
+          mouseHide = false;
+        }, 200);
+      }, 1000);
   }
 }
