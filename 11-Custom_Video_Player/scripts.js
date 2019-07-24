@@ -21,15 +21,19 @@ progressBar.addEventListener("mousedown", handleProgressBarMouseDown);
 player.addEventListener("mouseup", handlePlayerMouseAway);
 player.addEventListener("mouseleave", handlePlayerMouseAway);
 player.addEventListener("mousemove", handleScrub);
-
+volumeSlider.addEventListener("click", handleVolumeSliderMove);
+volumeSlider.addEventListener("mousemove", handleVolumeSliderMove);
+speedSlider.addEventListener("click", handleSpeedSliderMove);
+speedSlider.addEventListener("mousemove", handleSpeedSliderMove);
+skipButtons.forEach(skipButton => skipButton.addEventListener("click", handleSkip));
 // Build our Functions
 function handlePlayPause() {
   if (!video.paused) {
     video.pause();
-    playButton.textContent = "❚ ❚";
+    playButton.textContent = "►";
   } else {
     video.play();
-    playButton.textContent = "►";
+    playButton.textContent = "❚ ❚";
   }
 }
 
@@ -40,11 +44,13 @@ function handleVideoProgress() {
 function handleProgressBarClick(e) {
   if (!video.paused) video.pause();
   video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+  playButton.textContent = "►";
 }
 
 function handleProgressBarMouseDown() {
   if (!video.paused) video.pause();
   scrub = true;
+  playButton.textContent = "►";
 }
 
 function handlePlayerMouseAway() {
@@ -53,4 +59,16 @@ function handlePlayerMouseAway() {
 
 function handleScrub(e) {
   if (scrub) video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+}
+
+function handleVolumeSliderMove() {
+  video.volume = volumeSlider.value;
+}
+
+function handleSpeedSliderMove() {
+  video.playbackRate = speedSlider.value;
+}
+
+function handleSkip(e) {
+  video.currentTime += parseInt(e.target.dataset.skip);
 }
