@@ -45,17 +45,14 @@ function handleProgressBarMouseDown() {
   if (!video.paused) video.pause();
   scrub = true;
   playButton.textContent = "►";
-  console.log("Scrubbing");
 }
 
 function handleStopScrub() {
   scrub = false;
-  console.log("Not Scrubbing");
 }
 
 function handleScrub(e) {
   if (scrub) video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
-  if (scrub) console.log("Scrubbing");
 }
 
 function handleVolumeSliderMove() {
