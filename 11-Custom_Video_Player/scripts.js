@@ -16,16 +16,16 @@ let scrub = false;
 video.addEventListener("click", handlePlayPause);
 playButton.addEventListener("click", handlePlayPause);
 video.addEventListener("timeupdate", handleVideoProgress);
-progressBar.addEventListener("click", handleProgressBarClick);
 progressBar.addEventListener("mousedown", handleProgressBarMouseDown);
-player.addEventListener("mouseup", handlePlayerMouseAway);
-player.addEventListener("mouseleave", handlePlayerMouseAway);
+player.addEventListener("mouseup", handleStopScrub);
+player.addEventListener("mouseleave", handleStopScrub);
 player.addEventListener("mousemove", handleScrub);
 volumeSlider.addEventListener("click", handleVolumeSliderMove);
 volumeSlider.addEventListener("mousemove", handleVolumeSliderMove);
 speedSlider.addEventListener("click", handleSpeedSliderMove);
 speedSlider.addEventListener("mousemove", handleSpeedSliderMove);
 skipButtons.forEach(skipButton => skipButton.addEventListener("click", handleSkip));
+
 // Build our Functions
 function handlePlayPause() {
   if (!video.paused) {
@@ -41,24 +41,21 @@ function handleVideoProgress() {
   progressBarFill.style.setProperty("flex-basis", `${(video.currentTime / video.duration) * 100}%`);
 }
 
-function handleProgressBarClick(e) {
-  if (!video.paused) video.pause();
-  video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
-  playButton.textContent = "►";
-}
-
 function handleProgressBarMouseDown() {
   if (!video.paused) video.pause();
   scrub = true;
   playButton.textContent = "►";
+  console.log("Scrubbing");
 }
 
-function handlePlayerMouseAway() {
+function handleStopScrub() {
   scrub = false;
+  console.log("Not Scrubbing");
 }
 
 function handleScrub(e) {
   if (scrub) video.currentTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+  if (scrub) console.log("Scrubbing");
 }
 
 function handleVolumeSliderMove() {
