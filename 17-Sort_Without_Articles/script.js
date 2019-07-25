@@ -37,8 +37,6 @@ const sortedBands = bandsWithoutArticles.sort((band, nextBand) =>
   band.processedName == nextBand.processedName ? 0 : band.processedName < nextBand.processedName ? -1 : 1
 );
 
-console.table(sortedBands);
-
 const bandListItems = sortedBands.map(band => `<li>${band.bandName}</li>`).join("");
 
 bandListElement.innerHTML = bandListItems;
