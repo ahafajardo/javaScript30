@@ -39,12 +39,6 @@ const sortedBands = bandsWithoutArticles.sort((band, nextBand) =>
 
 console.table(sortedBands);
 
-const bandListItems = sortedBands
-  .map(
-    band => `
-    <li>${band.bandName}</li>
-    `
-  )
-  .join("");
+const bandListItems = sortedBands.map(band => `<li>${band.bandName}</li>`).join("");
 
 bandListElement.innerHTML = bandListItems;
