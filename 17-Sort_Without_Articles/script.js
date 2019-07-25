@@ -27,7 +27,7 @@ function removeArticles(inputString) {
   const outputString = articles.reduce((output, article) => {
     const regex = new RegExp(article, "gi");
     const cleanString = output.replace(regex, " ");
-    return cleanString.startsWith(" ") ? cleanString.slice(1) : cleanString;
+    return cleanString.trim();
   }, inputString);
 
   return outputString;
